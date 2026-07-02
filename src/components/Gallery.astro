@@ -1,22 +1,24 @@
 ---
 import SectionHead from './SectionHead.astro';
 
-// [PLACEHOLDER: gallery images — supplied separately.]
-// Drop the real IG photography into /public/gallery/ and update this list.
-// Categories follow Andrew's actual output; refine once real images land.
+// Real photography from Andrew's work, supplied by the client rep.
+// Remaining Fine Line / Piercing slots are still labelled placeholders —
+// swap the .svg entries below as more photos come in.
 const work = [
-  { src: '/gallery/realism-01.svg', style: 'Realism', alt: 'Black and grey religious statue piece, upper arm' },
-  { src: '/gallery/blackwork-01.svg', style: 'Blackwork', alt: 'Blackwork forearm portrait sleeve' },
-  { src: '/gallery/fineline-01.svg', style: 'Fine Line', alt: 'Fine line pen-drawing style tattoo' },
-  { src: '/gallery/realism-02.svg', style: 'Realism', alt: 'Realist military memorial calf piece' },
-  { src: '/gallery/colour-01.svg', style: 'Colour', alt: 'Colour tattoo' },
-  { src: '/gallery/blackwork-02.svg', style: 'Blackwork', alt: 'Blackwork ship piece, upper arm' },
-  { src: '/gallery/piercing-01.svg', style: 'Piercing', alt: 'Ear piercing work' },
-  { src: '/gallery/realism-03.svg', style: 'Realism', alt: 'Black and grey portrait, forearm' },
-  { src: '/gallery/fineline-02.svg', style: 'Fine Line', alt: 'Fine line script tattoo' },
-  { src: '/gallery/colour-02.svg', style: 'Colour', alt: 'Colour piece' },
-  { src: '/gallery/blackwork-03.svg', style: 'Blackwork', alt: 'Blackwork geometric piece' },
-  { src: '/gallery/piercing-02.svg', style: 'Piercing', alt: 'Piercing work' },
+  { src: '/gallery/realism-05.jpg', style: 'Realism', alt: 'Archangel Michael standing over a fallen demon, black and grey, upper arm', w: 1179, h: 1573 },
+  { src: '/gallery/realism-04.jpg', style: 'Realism', alt: "Black and grey portrait tribute piece with 'Bear & Abbie' script, chest", w: 1179, h: 1184 },
+  { src: '/gallery/fineline-01.svg', style: 'Fine Line', alt: 'Fine line pen-drawing style tattoo', w: 800, h: 1000 },
+  { src: '/gallery/realism-09.jpg', style: 'Realism', alt: 'Black and grey military memorial piece — helmet, rifle and boots, calf', w: 1179, h: 1040 },
+  { src: '/gallery/colour-03.jpg', style: 'Colour', alt: 'Colour battle axe tattoo, forearm', w: 1179, h: 1126 },
+  { src: '/gallery/blackwork-01.svg', style: 'Blackwork', alt: 'Blackwork forearm portrait sleeve', w: 800, h: 1200 },
+  { src: '/gallery/piercing-01.svg', style: 'Piercing', alt: 'Ear piercing work', w: 800, h: 1000 },
+  { src: '/gallery/realism-06.jpg', style: 'Realism', alt: 'Black and grey harlequin portrait sleeve with eye detail, forearm', w: 974, h: 1600 },
+  { src: '/gallery/realism-07.jpg', style: 'Realism', alt: 'Black and grey Anubis piece, calf — detail views', w: 1179, h: 874 },
+  { src: '/gallery/colour-02.svg', style: 'Colour', alt: 'Colour piece', w: 800, h: 900 },
+  { src: '/gallery/realism-08.jpg', style: 'Realism', alt: 'Black and grey tiger and lotus piece, calf', w: 1179, h: 1044 },
+  { src: '/gallery/realism-10.jpg', style: 'Realism', alt: 'Black and grey motorcycle racer portrait, calf', w: 1179, h: 1038 },
+  { src: '/gallery/blackwork-02.svg', style: 'Blackwork', alt: 'Blackwork ship piece, upper arm', w: 800, h: 1200 },
+  { src: '/gallery/piercing-02.svg', style: 'Piercing', alt: 'Piercing work', w: 800, h: 800 },
 ];
 const styles = ['All', ...new Set(work.map((w) => w.style))];
 ---
@@ -59,8 +61,8 @@ const styles = ['All', ...new Set(work.map((w) => w.style))];
               loading={i < 3 ? 'eager' : 'lazy'}
               decoding="async"
               class="w-full"
-              width="800"
-              height="1000"
+              width={item.w}
+              height={item.h}
             />
           </button>
           <figcaption class="mt-2 text-xs uppercase tracking-[0.25em] text-bone-dim/70">{item.style}</figcaption>
