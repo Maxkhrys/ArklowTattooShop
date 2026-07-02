@@ -1,0 +1,49 @@
+---
+import SectionHead from './SectionHead.astro';
+---
+
+<section id="about" class="bg-ink-soft py-24 sm:py-32">
+  <SectionHead kicker="The Artist" title="Andrew O'Callaghan" />
+
+  <div class="mx-auto grid max-w-5xl items-center gap-12 px-5 md:grid-cols-5">
+    <div class="reveal md:col-span-2">
+      <!-- [PLACEHOLDER: Andrew studio/artist photo — supplied separately] -->
+      <div class="glow-ring flex aspect-[4/5] items-center justify-center rounded-sm border border-violet-glow/30 bg-ink-card">
+        <p class="max-w-[14rem] text-center text-xs uppercase tracking-[0.25em] text-bone-dim/60">
+          [Placeholder: Andrew — studio portrait to be supplied]
+        </p>
+      </div>
+    </div>
+
+    <div class="reveal space-y-5 text-bone-dim md:col-span-3">
+      <p class="text-lg leading-relaxed text-bone">
+        Years at the machine, thousands of hours of black and grey, realism, fine line and custom work —
+        and now a studio of his own on Bridge Street.
+      </p>
+      <p class="leading-relaxed">
+        Andrew O'Callaghan is no first-timer. With an established body of work and a following built
+        piece by piece — over 4,700 strong on Instagram — he's opened Arklow Tattoo Studio to do things
+        on his own terms: proper consultations, custom design work, and a studio that takes the craft
+        as seriously as the people wearing it.
+      </p>
+      <p class="leading-relaxed">
+        Specialising in black and grey realism, religious and statuary work, portraits and fine line —
+        with professional piercing on site through the Inky Tattoo partnership.
+      </p>
+      <div class="flex flex-wrap gap-2 pt-2">
+        {
+          ['Black & Grey Realism', 'Portraits', 'Fine Line', 'Custom Design', 'Cover-ups'].map((tag) => (
+            <span class="rounded-full border border-violet-glow/30 px-4 py-1.5 text-xs uppercase tracking-[0.15em] text-bone-dim">
+              {tag}
+            </span>
+          ))
+        }
+      </div>
+      <div class="pt-4">
+        <a href="https://www.instagram.com/andrewocallaghantattoos" target="_blank" rel="noopener" class="btn-crest">
+          Follow the work
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

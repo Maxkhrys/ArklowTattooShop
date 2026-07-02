@@ -1,0 +1,35 @@
+---
+import Crest from './Crest.astro';
+---
+
+<section id="top" class="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-5 pt-20 text-center">
+  <!-- Ambient purple haze behind the crest -->
+  <div
+    class="pointer-events-none absolute left-1/2 top-1/2 h-[70vmin] w-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-60 blur-3xl"
+    style="background: radial-gradient(circle, rgb(124 47 214 / 0.28) 0%, transparent 65%);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="hero-line mb-6 inline-flex items-center gap-2 rounded-full border border-violet-glow/40 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-violet-bright glow-ring">
+    <span class="inline-block h-1.5 w-1.5 rounded-full bg-violet-bright" style="box-shadow: 0 0 8px #a566ec;"></span>
+    Now open
+  </div>
+
+  <Crest id="hero-crest" class="relative w-64 sm:w-80 md:w-96" />
+
+  <h1 class="hero-line mt-8 font-display text-5xl leading-none tracking-wide glow-text sm:text-7xl md:text-8xl">
+    Arklow Tattoo Studio
+  </h1>
+
+  <p class="hero-line mt-6 max-w-md text-base text-bone-dim sm:text-lg">
+    Tattoo &amp; piercing studio — Bridge Street, Arklow.
+  </p>
+
+  <div class="hero-line mt-10 flex flex-wrap items-center justify-center gap-4">
+    <a href="#booking" class="btn-crest">Book a consultation</a>
+    <a href="#gallery" class="text-sm uppercase tracking-[0.2em] text-bone-dim transition-colors duration-300 hover:text-violet-bright">
+      View the work ↓
+    </a>
+  </div>
+</section>

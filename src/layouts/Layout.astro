@@ -1,0 +1,164 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Arklow Tattoo Studio — Tattoo & Piercing, Bridge Street, Arklow',
+  description =
+    'Arklow Tattoo Studio — tattoo and piercing studio by Andrew O\'Callaghan at 7 Bridge Street, Arklow, Co. Wicklow. Custom tattoos, flash days and professional piercing. Now open.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="tattoo studio Arklow, piercing Arklow, Andrew O'Callaghan tattoo, tattoo Wicklow, Arklow Tattoo Studio"
+    />
+    <link rel="canonical" href={Astro.site} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="en_IE" />
+    <meta name="theme-color" content="#050505" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <script is:inline>document.documentElement.classList.add('js-anim');</script>
+
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'TattooParlor',
+      name: 'Arklow Tattoo Studio',
+      founder: { '@type': 'Person', name: "Andrew O'Callaghan" },
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '7 Bridge Street',
+        addressLocality: 'Arklow',
+        addressRegion: 'Co. Wicklow',
+        addressCountry: 'IE',
+      },
+      sameAs: ['https://www.instagram.com/andrewocallaghantattoos'],
+    })} />
+  </head>
+  <body class="bg-ink text-bone antialiased">
+    <slot />
+
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!prefersReduced) {
+        const lenis = new Lenis({ lerp: 0.09, smoothWheel: true });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        // Anchor links route through Lenis for a consistent glide
+        document.querySelectorAll('a[href^="#"]').forEach((a) => {
+          a.addEventListener('click', (e) => {
+            const id = a.getAttribute('href');
+            if (id && id.length > 1 && document.querySelector(id)) {
+              e.preventDefault();
+              lenis.scrollTo(id, { offset: -72, duration: 1.4 });
+            }
+          });
+        });
+
+        // --- Hero: crest glow swells in, settles; text follows ---
+        const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+        heroTl
+          .fromTo('#hero-crest', { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 1.8 })
+          .fromTo(
+            '#hero-crest',
+            { filter: 'drop-shadow(0 0 0px rgba(124,47,214,0)) drop-shadow(0 0 0px rgba(124,47,214,0))' },
+            {
+              filter: 'drop-shadow(0 0 18px rgba(124,47,214,0.75)) drop-shadow(0 0 60px rgba(124,47,214,0.4))',
+              duration: 2.2,
+              ease: 'sine.inOut',
+            },
+            '<0.4'
+          )
+          .fromTo('.hero-line', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 1.1, stagger: 0.18 }, '-=1.4');
+
+        // Slow breathing glow on the crest after settle
+        gsap.to('#hero-crest', {
+          filter: 'drop-shadow(0 0 26px rgba(124,47,214,0.9)) drop-shadow(0 0 80px rgba(124,47,214,0.5))',
+          duration: 3.4,
+          ease: 'sine.inOut',
+          yoyo: true,
+          repeat: -1,
+          delay: 3,
+        });
+
+        // --- Section reveals: slow, confident rise ---
+        document.querySelectorAll('.reveal').forEach((el) => {
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 36 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.3,
+              ease: 'power3.out',
+              scrollTrigger: { trigger: el, start: 'top 82%' },
+            }
+          );
+        });
+
+        // Staggered groups (gallery, service cards)
+        document.querySelectorAll('[data-reveal-group]').forEach((group) => {
+          gsap.fromTo(
+            group.querySelectorAll('.reveal-item'),
+            { opacity: 0, y: 44 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 1.2,
+              ease: 'power3.out',
+              stagger: 0.14,
+              scrollTrigger: { trigger: group, start: 'top 80%' },
+            }
+          );
+        });
+
+        // --- Flash Day: the one deliberately punchy section ---
+        const flash = document.querySelector('#flash');
+        if (flash) {
+          gsap.fromTo(
+            flash.querySelectorAll('.flash-pop'),
+            { opacity: 0, scale: 0.7, rotate: -4 },
+            {
+              opacity: 1,
+              scale: 1,
+              rotate: 0,
+              duration: 0.55,
+              ease: 'back.out(2.2)',
+              stagger: 0.09,
+              scrollTrigger: { trigger: flash, start: 'top 75%' },
+            }
+          );
+        }
+      } else {
+        // Reduced motion: everything visible, no animation
+        document.querySelectorAll('.reveal, .reveal-item, .hero-line, .flash-pop').forEach((el) => {
+          (el as HTMLElement).style.opacity = '1';
+          (el as HTMLElement).style.transform = 'none';
+        });
+      }
+    </script>
+  </body>
+</html>

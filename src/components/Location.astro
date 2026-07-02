@@ -1,0 +1,73 @@
+---
+import SectionHead from './SectionHead.astro';
+---
+
+<section id="visit" class="bg-ink-soft py-24 sm:py-32">
+  <SectionHead kicker="The Studio" title="Find Us" />
+
+  <div class="mx-auto grid max-w-5xl gap-10 px-5 md:grid-cols-2">
+    <!-- Stylised map: brand-system treatment instead of a plain embed -->
+    <div class="reveal">
+      <div class="glow-ring relative overflow-hidden rounded-sm border border-violet-glow/30 bg-ink-card">
+        <svg viewBox="0 0 480 360" class="w-full" role="img" aria-label="Stylised map showing Arklow Tattoo Studio at 7 Bridge Street, beside the Nineteen Arches Bridge over the Avoca River">
+          <rect width="480" height="360" fill="#0d0a12" />
+          <!-- Avoca river -->
+          <path d="M-10 90 C 120 70, 220 130, 300 110 C 380 90, 440 120, 490 100 L 490 150 C 430 165, 370 140, 300 158 C 220 178, 120 120, -10 140 Z"
+                fill="#12082a" stroke="#7c2fd6" stroke-opacity="0.35" stroke-width="1.5" />
+          <!-- streets -->
+          <g stroke="#3a2f4a" stroke-width="10" stroke-linecap="round">
+            <path d="M240 20 L 240 340" />
+            <path d="M60 240 L 440 250" />
+            <path d="M80 330 L 400 300" />
+          </g>
+          <g stroke="#221a2e" stroke-width="5" stroke-linecap="round">
+            <path d="M140 60 L 120 340" />
+            <path d="M340 40 L 360 340" />
+          </g>
+          <!-- bridge over the river on Bridge St -->
+          <rect x="228" y="92" width="24" height="64" fill="#221a2e" stroke="#7c2fd6" stroke-opacity="0.5" stroke-width="1.5" />
+          <text x="255" y="86" fill="#6b6275" font-size="13" font-family="Georgia, serif" letter-spacing="2">AVOCA RIVER</text>
+          <text x="250" y="215" fill="#8d8399" font-size="13" font-family="Georgia, serif" letter-spacing="2">BRIDGE ST</text>
+          <!-- studio pin -->
+          <g style="filter: drop-shadow(0 0 12px #7c2fd6);">
+            <path d="M240 168 C 226 168, 216 178, 216 192 C 216 206, 240 232, 240 232 C 240 232, 264 206, 264 192 C 264 178, 254 168, 240 168 Z" fill="#7c2fd6" />
+            <circle cx="240" cy="191" r="9" fill="#050505" />
+          </g>
+          <text x="240" y="262" text-anchor="middle" fill="#f3f0f5" font-size="15" font-family="Georgia, serif" letter-spacing="2">No. 7</text>
+        </svg>
+      </div>
+      <a
+        href="https://maps.google.com/?q=7+Bridge+Street,+Arklow,+Co.+Wicklow"
+        target="_blank"
+        rel="noopener"
+        class="mt-4 inline-block text-xs uppercase tracking-[0.25em] text-violet-bright underline-offset-4 hover:underline"
+      >
+        Open in Google Maps →
+      </a>
+    </div>
+
+    <div class="reveal space-y-8">
+      <div>
+        <h3 class="text-xs uppercase tracking-[0.3em] text-violet-bright">Address</h3>
+        <p class="mt-3 font-display text-3xl tracking-wide text-bone glow-text-soft">7 Bridge Street</p>
+        <p class="mt-1 text-bone-dim">Arklow, Co. Wicklow, Ireland</p>
+      </div>
+      <div class="divider-glow w-32"></div>
+      <div>
+        <h3 class="text-xs uppercase tracking-[0.3em] text-violet-bright">Hours</h3>
+        <!-- [PLACEHOLDER: confirmed opening hours] -->
+        <ul class="mt-3 space-y-2 text-sm text-bone-dim">
+          <li class="flex justify-between gap-8"><span>Tuesday – Friday</span><span class="text-bone">10:00 – 18:00</span></li>
+          <li class="flex justify-between gap-8"><span>Saturday</span><span class="text-bone">10:00 – 18:00</span></li>
+          <li class="flex justify-between gap-8"><span>Sunday – Monday</span><span class="text-bone">Closed</span></li>
+        </ul>
+        <p class="mt-3 text-xs text-bone-dim/60">[Placeholder hours — to be confirmed.]</p>
+      </div>
+      <div class="divider-glow w-32"></div>
+      <p class="text-sm leading-relaxed text-bone-dim">
+        On the main street, just over the Nineteen Arches Bridge. Walk-ins welcome when the light's on —
+        consultations by appointment.
+      </p>
+    </div>
+  </div>
+</section>

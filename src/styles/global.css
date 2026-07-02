@@ -1,0 +1,152 @@
+@import 'tailwindcss';
+@import '@fontsource/pirata-one';
+@import '@fontsource/bungee';
+@import '@fontsource/inter/400.css';
+@import '@fontsource/inter/500.css';
+@import '@fontsource/inter/600.css';
+
+@theme {
+  --color-ink: #050505;
+  --color-ink-soft: #0d0a12;
+  --color-ink-card: #120d1a;
+  --color-violet-glow: #7c2fd6;
+  --color-violet-bright: #a566ec;
+  --color-violet-dim: #4a1c82;
+  --color-bone: #f3f0f5;
+  --color-bone-dim: #b3aabf;
+
+  --font-display: 'Pirata One', 'UnifrakturCook', serif;
+  --font-flash: 'Bungee', sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  background-color: var(--color-ink);
+  color: var(--color-bone);
+  scroll-behavior: auto;
+}
+
+body {
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-violet-glow);
+  color: var(--color-bone);
+}
+
+/* ---- Signature purple neon glow system ---- */
+.glow-text {
+  text-shadow:
+    0 0 12px rgb(124 47 214 / 0.85),
+    0 0 42px rgb(124 47 214 / 0.45),
+    0 0 90px rgb(124 47 214 / 0.25);
+}
+
+.glow-text-soft {
+  text-shadow:
+    0 0 10px rgb(124 47 214 / 0.5),
+    0 0 34px rgb(124 47 214 / 0.25);
+}
+
+.glow-drop {
+  filter:
+    drop-shadow(0 0 14px rgb(124 47 214 / 0.7))
+    drop-shadow(0 0 48px rgb(124 47 214 / 0.4));
+}
+
+.glow-ring {
+  box-shadow:
+    0 0 0 1px rgb(124 47 214 / 0.45),
+    0 0 18px rgb(124 47 214 / 0.35),
+    inset 0 0 18px rgb(124 47 214 / 0.12);
+}
+
+/* Section divider: thin purple neon line that fades at the edges */
+.divider-glow {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(124 47 214 / 0.8) 30%,
+    rgb(165 102 236 / 1) 50%,
+    rgb(124 47 214 / 0.8) 70%,
+    transparent
+  );
+  box-shadow: 0 0 16px rgb(124 47 214 / 0.55);
+}
+
+/* Gallery hover halo */
+.gallery-item {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.gallery-item:hover {
+  transform: scale(1.015);
+  box-shadow:
+    0 0 0 1px rgb(124 47 214 / 0.6),
+    0 0 30px rgb(124 47 214 / 0.45),
+    0 0 80px rgb(124 47 214 / 0.2);
+}
+
+/* Buttons */
+.btn-crest {
+  display: inline-block;
+  border: 1px solid var(--color-violet-glow);
+  border-radius: 0.125rem;
+  padding: 0.85rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-bone);
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 14px rgb(124 47 214 / 0.3), inset 0 0 14px rgb(124 47 214 / 0.08);
+}
+.btn-crest:hover {
+  box-shadow: 0 0 26px rgb(124 47 214 / 0.65), inset 0 0 22px rgb(124 47 214 / 0.2);
+  background-color: rgb(124 47 214 / 0.12);
+}
+
+/* Flash day: punchier register */
+.flash-shadow {
+  text-shadow:
+    3px 3px 0 #2b0a52,
+    0 0 24px rgb(165 102 236 / 0.9);
+}
+
+@keyframes flash-flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.6; }
+  94% { opacity: 1; }
+  97% { opacity: 0.75; }
+  98% { opacity: 1; }
+}
+.flash-flicker { animation: flash-flicker 4.5s infinite; }
+
+/* Reveal defaults: hidden only when JS is running (html.js-anim set inline),
+   so content stays visible with JS disabled. GSAP animates them in. */
+html.js-anim .reveal { opacity: 0; transform: translateY(36px); }
+html.js-anim .reveal-item { opacity: 0; transform: translateY(44px); }
+html.js-anim .hero-line { opacity: 0; transform: translateY(26px); }
+html.js-anim .flash-pop { opacity: 0; }
+html.js-anim #hero-crest { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-anim .reveal,
+  html.js-anim .reveal-item,
+  html.js-anim .hero-line,
+  html.js-anim .flash-pop,
+  html.js-anim #hero-crest {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Lightbox */
+#lightbox {
+  backdrop-filter: blur(14px);
+  background: rgb(5 5 5 / 0.92);
+}

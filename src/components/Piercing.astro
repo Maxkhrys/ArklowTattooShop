@@ -1,0 +1,44 @@
+---
+import SectionHead from './SectionHead.astro';
+
+// [PLACEHOLDER: booking contact details / final piercing price list]
+const services = [
+  { name: 'Lobe', price: '€20' },
+  { name: 'Helix / Cartilage', price: '€20' },
+  { name: 'Nostril', price: '€20' },
+  { name: 'Septum', price: '€20' },
+  { name: 'Navel', price: '€20' },
+  { name: 'Eyebrow', price: '€20' },
+];
+---
+
+<section id="piercing" class="py-24 sm:py-32">
+  <SectionHead kicker="On Site" title="Piercing" />
+
+  <div class="mx-auto max-w-4xl px-5">
+    <p class="reveal mx-auto mb-12 max-w-2xl text-center leading-relaxed text-bone-dim">
+      Professional piercing in-studio, in partnership with
+      <span class="text-violet-bright">Inky Tattoo</span>. Launch pricing — all piercings €20.
+      <span class="text-bone-dim/60">[Placeholder pricing — to be confirmed.]</span>
+    </p>
+
+    <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" data-reveal-group>
+      {
+        services.map((s) => (
+          <li class="reveal-item flex items-center justify-between rounded-sm border border-violet-glow/20 bg-ink-card px-5 py-4 transition-shadow duration-500 hover:shadow-[0_0_18px_rgb(124_47_214_/_0.35)]">
+            <span class="text-sm text-bone">{s.name}</span>
+            <span class="font-display text-xl text-violet-bright">{s.price}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="reveal mt-12 rounded-sm border border-violet-glow/20 bg-ink-card p-6 text-center">
+      <p class="text-xs uppercase tracking-[0.3em] text-violet-bright">Hygiene &amp; standards</p>
+      <p class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-bone-dim">
+        Single-use sterile needles, sealed and opened in front of you. Implant-grade jewellery,
+        full aftercare guidance with every piercing. If you're under 18, bring a parent or guardian and photo ID.
+      </p>
+    </div>
+  </div>
+</section>

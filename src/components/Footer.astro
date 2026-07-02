@@ -1,0 +1,41 @@
+---
+import Crest from './Crest.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="relative border-t border-violet-glow/15 bg-ink-soft py-16">
+  <div class="mx-auto flex max-w-6xl flex-col items-center gap-10 px-5 text-center md:flex-row md:justify-between md:text-left">
+    <div class="flex items-center gap-4">
+      <Crest class="h-16 w-20 opacity-50 glow-drop" />
+      <div>
+        <p class="font-display text-2xl tracking-wide glow-text-soft">Arklow Tattoo Studio</p>
+        <p class="mt-1 text-xs uppercase tracking-[0.25em] text-bone-dim">Tattoo &amp; Piercing</p>
+      </div>
+    </div>
+
+    <div class="text-sm text-bone-dim">
+      <p>7 Bridge Street, Arklow, Co. Wicklow</p>
+      <p class="mt-1">Tue–Sat 10:00–18:00 <span class="text-bone-dim/50">[placeholder hours]</span></p>
+    </div>
+
+    <div>
+      <a
+        href="https://www.instagram.com/andrewocallaghantattoos"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center gap-2 text-sm text-bone-dim transition-colors duration-300 hover:text-violet-bright"
+      >
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.2" cy="6.8" r="0.8" fill="currentColor" stroke="none" />
+        </svg>
+        @andrewocallaghantattoos
+      </a>
+    </div>
+  </div>
+
+  <p class="mt-12 text-center text-xs text-bone-dim/40">
+    © {year} Arklow Tattoo Studio · Demo build for pitch purposes
+  </p>
+</footer>

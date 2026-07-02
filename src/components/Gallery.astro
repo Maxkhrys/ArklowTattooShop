@@ -1,0 +1,147 @@
+---
+import SectionHead from './SectionHead.astro';
+
+// [PLACEHOLDER: gallery images — supplied separately.]
+// Drop the real IG photography into /public/gallery/ and update this list.
+// Categories follow Andrew's actual output; refine once real images land.
+const work = [
+  { src: '/gallery/realism-01.svg', style: 'Realism', alt: 'Black and grey religious statue piece, upper arm' },
+  { src: '/gallery/blackwork-01.svg', style: 'Blackwork', alt: 'Blackwork forearm portrait sleeve' },
+  { src: '/gallery/fineline-01.svg', style: 'Fine Line', alt: 'Fine line pen-drawing style tattoo' },
+  { src: '/gallery/realism-02.svg', style: 'Realism', alt: 'Realist military memorial calf piece' },
+  { src: '/gallery/colour-01.svg', style: 'Colour', alt: 'Colour tattoo' },
+  { src: '/gallery/blackwork-02.svg', style: 'Blackwork', alt: 'Blackwork ship piece, upper arm' },
+  { src: '/gallery/piercing-01.svg', style: 'Piercing', alt: 'Ear piercing work' },
+  { src: '/gallery/realism-03.svg', style: 'Realism', alt: 'Black and grey portrait, forearm' },
+  { src: '/gallery/fineline-02.svg', style: 'Fine Line', alt: 'Fine line script tattoo' },
+  { src: '/gallery/colour-02.svg', style: 'Colour', alt: 'Colour piece' },
+  { src: '/gallery/blackwork-03.svg', style: 'Blackwork', alt: 'Blackwork geometric piece' },
+  { src: '/gallery/piercing-02.svg', style: 'Piercing', alt: 'Piercing work' },
+];
+const styles = ['All', ...new Set(work.map((w) => w.style))];
+---
+
+<section id="gallery" class="py-24 sm:py-32">
+  <SectionHead kicker="The Work" title="A Body of Work" />
+
+  <div class="reveal mx-auto mb-12 flex max-w-3xl flex-wrap justify-center gap-2 px-5" role="group" aria-label="Filter gallery by style">
+    {
+      styles.map((s, i) => (
+        <button
+          class:list={[
+            'gallery-filter rounded-full border px-5 py-2 text-xs uppercase tracking-[0.2em] transition-all duration-300',
+            i === 0
+              ? 'border-violet-glow text-bone glow-ring'
+              : 'border-violet-glow/25 text-bone-dim hover:border-violet-glow/60 hover:text-bone',
+          ]}
+          data-style={s}
+          aria-pressed={i === 0 ? 'true' : 'false'}
+        >
+          {s}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="mx-auto max-w-6xl columns-1 gap-6 px-5 sm:columns-2 lg:columns-3" data-reveal-group id="gallery-grid">
+    {
+      work.map((item, i) => (
+        <figure class="reveal-item mb-6 break-inside-avoid" data-style={item.style}>
+          <button
+            class="gallery-item block w-full overflow-hidden rounded-sm border border-violet-glow/15 text-left"
+            data-lightbox={item.src}
+            data-caption={`${item.style} — Andrew O'Callaghan`}
+            aria-label={`Enlarge: ${item.alt}`}
+          >
+            <img
+              src={item.src}
+              alt={item.alt}
+              loading={i < 3 ? 'eager' : 'lazy'}
+              decoding="async"
+              class="w-full"
+              width="800"
+              height="1000"
+            />
+          </button>
+          <figcaption class="mt-2 text-xs uppercase tracking-[0.25em] text-bone-dim/70">{item.style}</figcaption>
+        </figure>
+      ))
+    }
+  </div>
+
+  <p class="reveal mx-auto mt-12 max-w-xl px-5 text-center text-sm text-bone-dim">
+    522 posts and counting — see the full archive on
+    <a href="https://www.instagram.com/andrewocallaghantattoos" class="text-violet-bright underline-offset-4 hover:underline" target="_blank" rel="noopener">
+      @andrewocallaghantattoos
+    </a>
+    <!-- [PLACEHOLDER: real Instagram embed — @andrewocallaghantattoos] -->
+  </p>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button id="lightbox-close" class="absolute right-5 top-5 p-2 text-3xl leading-none text-bone-dim transition-colors hover:text-violet-bright" aria-label="Close viewer">×</button>
+  <figure class="max-h-full">
+    <img id="lightbox-img" src="" alt="" class="max-h-[82vh] max-w-full rounded-sm border border-violet-glow/30" style="box-shadow: 0 0 60px rgb(124 47 214 / 0.35);" />
+    <figcaption id="lightbox-caption" class="mt-4 text-center text-xs uppercase tracking-[0.3em] text-bone-dim"></figcaption>
+  </figure>
+</div>
+
+<script>
+  // Filters
+  const filters = document.querySelectorAll<HTMLButtonElement>('.gallery-filter');
+  const items = document.querySelectorAll<HTMLElement>('#gallery-grid figure');
+  filters.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const style = btn.dataset.style;
+      filters.forEach((b) => {
+        const active = b === btn;
+        b.setAttribute('aria-pressed', String(active));
+        b.classList.toggle('glow-ring', active);
+        b.classList.toggle('border-violet-glow', active);
+        b.classList.toggle('text-bone', active);
+        b.classList.toggle('border-violet-glow/25', !active);
+        b.classList.toggle('text-bone-dim', !active);
+      });
+      items.forEach((fig) => {
+        fig.style.display = style === 'All' || fig.dataset.style === style ? '' : 'none';
+      });
+    });
+  });
+
+  // Lightbox
+  const lightbox = document.getElementById('lightbox')!;
+  const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+  const lightboxCaption = document.getElementById('lightbox-caption')!;
+  let lastFocus: HTMLElement | null = null;
+
+  function openLightbox(src: string, caption: string, alt: string) {
+    lastFocus = document.activeElement as HTMLElement;
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightboxCaption.textContent = caption;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    document.getElementById('lightbox-close')?.focus();
+  }
+  function closeLightbox() {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+    lastFocus?.focus();
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-lightbox]').forEach((btn) => {
+    btn.addEventListener('click', () =>
+      openLightbox(btn.dataset.lightbox!, btn.dataset.caption ?? '', btn.querySelector('img')?.alt ?? '')
+    );
+  });
+  document.getElementById('lightbox-close')?.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) closeLightbox();
+  });
+</script>

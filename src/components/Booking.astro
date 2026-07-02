@@ -1,0 +1,102 @@
+---
+import SectionHead from './SectionHead.astro';
+---
+
+<section id="booking" class="py-24 sm:py-32">
+  <SectionHead kicker="Get In" title="Book a Consultation" />
+
+  <div class="mx-auto max-w-2xl px-5">
+    <!-- Demo form: wire to a form service (e.g. Formspree/Basin) or studio email on handover.
+         [PLACEHOLDER: booking contact details] -->
+    <form id="booking-form" class="reveal space-y-5" novalidate>
+      <div class="grid gap-5 sm:grid-cols-2">
+        <div>
+          <label for="bf-name" class="mb-2 block text-xs uppercase tracking-[0.25em] text-bone-dim">Name</label>
+          <input
+            id="bf-name" name="name" type="text" required autocomplete="name"
+            class="w-full rounded-sm border border-violet-glow/25 bg-ink-card px-4 py-3 text-sm text-bone placeholder:text-bone-dim/40 focus:border-violet-glow focus:outline-none focus:ring-1 focus:ring-violet-glow"
+            placeholder="Your name"
+          />
+        </div>
+        <div>
+          <label for="bf-contact" class="mb-2 block text-xs uppercase tracking-[0.25em] text-bone-dim">Email or phone</label>
+          <input
+            id="bf-contact" name="contact" type="text" required autocomplete="email"
+            class="w-full rounded-sm border border-violet-glow/25 bg-ink-card px-4 py-3 text-sm text-bone placeholder:text-bone-dim/40 focus:border-violet-glow focus:outline-none focus:ring-1 focus:ring-violet-glow"
+            placeholder="How do we reach you?"
+          />
+        </div>
+      </div>
+
+      <fieldset>
+        <legend class="mb-2 block text-xs uppercase tracking-[0.25em] text-bone-dim">I'm interested in</legend>
+        <div class="flex gap-3">
+          {
+            ['Tattoo', 'Piercing', 'Both'].map((opt, i) => (
+              <label class="flex-1 cursor-pointer">
+                <input type="radio" name="type" value={opt} checked={i === 0} class="peer sr-only" />
+                <span class="block rounded-sm border border-violet-glow/25 py-3 text-center text-xs uppercase tracking-[0.2em] text-bone-dim transition-all duration-300 peer-checked:border-violet-glow peer-checked:text-bone peer-checked:shadow-[0_0_16px_rgb(124_47_214_/_0.4)]">
+                  {opt}
+                </span>
+              </label>
+            ))
+          }
+        </div>
+      </fieldset>
+
+      <div>
+        <label for="bf-idea" class="mb-2 block text-xs uppercase tracking-[0.25em] text-bone-dim">Tell us about the piece</label>
+        <textarea
+          id="bf-idea" name="idea" rows="5" required
+          class="w-full rounded-sm border border-violet-glow/25 bg-ink-card px-4 py-3 text-sm text-bone placeholder:text-bone-dim/40 focus:border-violet-glow focus:outline-none focus:ring-1 focus:ring-violet-glow"
+          placeholder="Style, size, placement, the story behind it…"></textarea>
+      </div>
+
+      <div>
+        <span class="mb-2 block text-xs uppercase tracking-[0.25em] text-bone-dim">Reference images</span>
+        <label for="bf-ref" class="flex cursor-pointer items-center justify-center gap-3 rounded-sm border border-dashed border-violet-glow/30 bg-ink-card px-4 py-6 text-sm text-bone-dim transition-colors duration-300 hover:border-violet-glow/60">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+          </svg>
+          <span id="bf-ref-label">Drop reference images here or tap to browse</span>
+          <input id="bf-ref" name="references" type="file" accept="image/*" multiple class="sr-only" />
+        </label>
+      </div>
+
+      <div class="flex flex-col items-center gap-5 pt-2 sm:flex-row sm:justify-between">
+        <button type="submit" class="btn-crest w-full sm:w-auto">Send booking request</button>
+        <a
+          href="https://ig.me/m/andrewocallaghantattoos"
+          target="_blank"
+          rel="noopener"
+          class="text-xs uppercase tracking-[0.25em] text-bone-dim transition-colors duration-300 hover:text-violet-bright"
+        >
+          Or DM us on Instagram →
+        </a>
+      </div>
+      <p id="bf-status" class="hidden text-center text-sm text-violet-bright" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('booking-form') as HTMLFormElement | null;
+  const status = document.getElementById('bf-status');
+  const refInput = document.getElementById('bf-ref') as HTMLInputElement | null;
+  const refLabel = document.getElementById('bf-ref-label');
+
+  refInput?.addEventListener('change', () => {
+    const n = refInput.files?.length ?? 0;
+    if (refLabel) refLabel.textContent = n ? `${n} image${n > 1 ? 's' : ''} attached` : 'Drop reference images here or tap to browse';
+  });
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    // Demo build: no backend wired yet. Swap for a real POST on handover.
+    status?.classList.remove('hidden');
+    if (status) status.textContent = "Request noted — this demo isn't wired to a backend yet. DM @andrewocallaghantattoos to book for real.";
+    form.reset();
+    if (refLabel) refLabel.textContent = 'Drop reference images here or tap to browse';
+  });
+</script>
